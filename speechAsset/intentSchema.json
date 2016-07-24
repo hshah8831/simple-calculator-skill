@@ -1,0 +1,68 @@
+{
+  "intents": [
+    {
+      "intent": "AddIntent",
+      "slots": [
+      {
+        "name" : "NumberOne",
+        "type": "AMAZON.NUMBER"
+      },
+      {
+        "name" : "NumberTwo",
+        "type": "AMAZON.NUMBER"
+      }
+     ]
+    },
+	{
+      "intent": "SubIntent",
+      "slots": [
+      {
+        "name" : "NumberOne",
+        "type": "AMAZON.NUMBER"
+      },
+      {
+        "name" : "NumberTwo",
+        "type": "AMAZON.NUMBER"
+      }
+     ]
+    },
+	{
+      "intent": "MulIntent",
+      "slots": [
+      {
+        "name" : "NumberOne",
+        "type": "AMAZON.NUMBER"
+      },
+      {
+        "name" : "NumberTwo",
+        "type": "AMAZON.NUMBER"
+      }
+     ]
+    },
+	{
+      "intent": "DivIntent",
+      "slots": [
+      {
+        "name" : "NumberOne",
+        "type": "AMAZON.NUMBER"
+      },
+      {
+        "name" : "NumberTwo",
+        "type": "AMAZON.NUMBER"
+      }
+     ]
+    },
+    {
+      "intent": "AMAZON.RepeatIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+AddIntent add {NumberOne} and {NumberTwo}
+AddIntent what is the addition of {NumberOne} and {NumberTwo}
+AddIntent give me the addition of {NumberOne} and {NumberTwo}
+AddIntent what is the sum of {NumberOne} and {NumberTwo}
+AddIntent what is the summation of {NumberOne} and {NumberTwo}
+AddIntent give me the summation of {NumberOne} and {NumberTwo}
+SubIntent subtract {NumberTwo} from {NumberOne}
+SubIntent what is the difference between {NumberOne} and {NumberTwo}
+SubIntent give me the difference between {NumberOne} and {NumberTwo}
+SubIntent what is the subtraction of {NumberTwo} from {NumberOne}
+SubIntent what is the subtraction of {NumberTwo} from {NumberOne}
+SubIntent give me the subtraction of {NumberTwo} from {NumberOne}
+MulIntent multiply {NumberOne} and {NumberTwo}
+MulIntent what is the multiplication of {NumberOne} and {NumberTwo}
+MulIntent give me the multiplication of {NumberOne} and {NumberTwo}
+MulIntent what is {NumberTwo} times {NumberOne}
+MulIntent give me {NumberTwo} times {NumberOne}
+MulIntent what is {NumberOne} into {NumberTwo}
+MulIntent give me {NumberTwo} into {NumberOne}
+DivIntent divide {NumberOne} by {NumberTwo}
+DivIntent division of {NumberOne} by {NumberTwo}
+DivIntent what is the division of {NumberOne} by {NumberTwo}
