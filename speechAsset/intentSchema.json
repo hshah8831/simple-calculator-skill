@@ -1,68 +1,116 @@
 {
-  "intents": [
-    {
-      "intent": "AddIntent",
-      "slots": [
-      {
-        "name" : "NumberOne",
-        "type": "AMAZON.NUMBER"
-      },
-      {
-        "name" : "NumberTwo",
-        "type": "AMAZON.NUMBER"
-      }
-     ]
-    },
-	{
-      "intent": "SubIntent",
-      "slots": [
-      {
-        "name" : "NumberOne",
-        "type": "AMAZON.NUMBER"
-      },
-      {
-        "name" : "NumberTwo",
-        "type": "AMAZON.NUMBER"
-      }
-     ]
-    },
-	{
-      "intent": "MulIntent",
-      "slots": [
-      {
-        "name" : "NumberOne",
-        "type": "AMAZON.NUMBER"
-      },
-      {
-        "name" : "NumberTwo",
-        "type": "AMAZON.NUMBER"
-      }
-     ]
-    },
-	{
-      "intent": "DivIntent",
-      "slots": [
-      {
-        "name" : "NumberOne",
-        "type": "AMAZON.NUMBER"
-      },
-      {
-        "name" : "NumberTwo",
-        "type": "AMAZON.NUMBER"
-      }
-     ]
-    },
-    {
-      "intent": "AMAZON.RepeatIntent"
-    },
-    {
-      "intent": "AMAZON.HelpIntent"
-    },
-    {
-      "intent": "AMAZON.StopIntent"
-    },
-    {
-      "intent": "AMAZON.CancelIntent"
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "saurabh calculator",
+            "modelConfiguration": {
+                "fallbackIntentSensitivity": {
+                    "level": "LOW"
+                }
+            },
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AddIntent",
+                    "slots": [
+                        {
+                            "name": "NumberOne",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "NumberTwo",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "add {NumberOne} and {NumberTwo}",
+                        "what is the addition of {NumberOne} and {NumberTwo}",
+                        "give me the addition of {NumberOne} and {NumberTwo}",
+                        "what is the sum of {NumberOne} and {NumberTwo}",
+                        "what is the summation of {NumberOne} and {NumberTwo}",
+                        "give me the summation of {NumberOne} and {NumberTwo}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "SubIntent",
+                    "slots": [
+                        {
+                            "name": "NumberTwo",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "NumberOne",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "subtract {NumberTwo} from {NumberOne}",
+                        "what is the difference between {NumberOne} and {NumberTwo}",
+                        "give me the difference between {NumberOne} and {NumberTwo}",
+                        "what is the subtraction of {NumberTwo} from {NumberOne}"
+                    ]
+                },
+                {
+                    "name": "MulIntent",
+                    "slots": [
+                        {
+                            "name": "NumberOne",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "NumberTwo",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "multiply {NumberOne} and {NumberTwo}",
+                        "what is the multiplication of {NumberOne} and {NumberTwo}",
+                        "give me the multiplication of {NumberOne} and {NumberTwo}",
+                        "what is {NumberTwo} times {NumberOne}",
+                        "give me {NumberTwo} times {NumberOne}",
+                        "what is {NumberOne} into {NumberTwo}",
+                        "give me {NumberTwo} into {NumberOne}"
+                    ]
+                },
+                {
+                    "name": "DivIntent",
+                    "slots": [
+                        {
+                            "name": "NumberOne",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "NumberTwo",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "divide {NumberOne} by {NumberTwo}",
+                        "division of {NumberOne} by {NumberTwo}",
+                        "what is the division of {NumberOne} by {NumberTwo}",
+                        "give me the division of {NumberOne} and {NumberTwo}"
+                    ]
+                }
+            ],
+            "types": []
+        }
     }
-  ]
 }
