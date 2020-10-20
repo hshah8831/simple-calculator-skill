@@ -1,158 +1,239 @@
-'use strict';
+/* *
+ * This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK (v2).
+ * Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
+ * session persistence, api calls, and more.
+ * */
+const Alexa = require('ask-sdk-core');
 
-var Alexa = require('alexa-sdk');
-var APP_ID = "amzn1.ask.skill.a0dbd87f-9d6a-4173-8a98-dce13010650a";
-var SKILL_NAME = 'Calci';
+const LaunchRequestHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Welcome to rahul calculator';
 
-exports.handler = function(event, context, callback) {
-    var alexa = Alexa.handler(event, context);
-    alexa.APP_ID = APP_ID;
-    alexa.registerHandlers(handlers);
-    alexa.execute();
-};
-
-var handlers = {
-    'NewSession': function () {
-        this.attributes['speechOutput'] = 'Welcome to ' + SKILL_NAME + '. You can ask a question like, what\'s the' +
-            ' summation of 5 and 3? ... Now, what can I help you with.';
-        // If the user either does not reply to the welcome message or says something that is not
-        // understood, they will be prompted again with this text.
-        this.attributes['repromptSpeech'] = 'For instructions on what you can say, please say help me.';
-        this.emit(':ask', this.attributes['speechOutput'], this.attributes['repromptSpeech'])
-    },
-	'AddIntent': function() {
-		var numberOneSlot = this.event.request.intent.slots.NumberOne;
-		var numberTwoSlot = this.event.request.intent.slots.NumberTwo;
-        var numberOne;
-		var numberTwo;
-        if (numberOneSlot && numberOneSlot.value) {
-			console.log(numberOneSlot.value);
-            numberOne = parseInt(numberOneSlot.value, 10);
-        } 
-		if (numberTwoSlot && numberTwoSlot.value) {
-			console.log(numberTwoSlot.value);
-            numberTwo = parseInt(numberTwoSlot.value, 10);
-        }
-		var cardTitle = 'ADDITION';
-		var speechOutput;
-		if(numberOne == undefined || numberTwo == undefined){
-			speechOutput = 'need two numbers to add, please try again';
-			this.attributes['speechOutput'] = speechOutput;
-            this.attributes['repromptSpeech'] = 'please try again';
-            this.emit(':tell', speechOutput);
-		} else {
-			speechOutput = 'the summation of ' + numberOne + ' and ' + numberTwo + ' is ' + (numberOne + numberTwo);
-			this.attributes['speechOutput'] = speechOutput
-            this.emit(':tellWithCard', speechOutput, cardTitle, speechOutput);
-		}
-	},
-	'SubIntent': function() {
-		var numberOneSlot = this.event.request.intent.slots.NumberOne;
-		var numberTwoSlot = this.event.request.intent.slots.NumberTwo;
-        var numberOne;
-		var numberTwo;
-        if (numberOneSlot && numberOneSlot.value) {
-            numberOne = parseInt(numberOneSlot.value, 10);
-        } 
-		if (numberTwoSlot && numberTwoSlot.value) {
-            numberTwo = parseInt(numberTwoSlot.value, 10);
-        }
-		var cardTitle = 'SUBTRACTION';
-		var speechOutput;
-		if(numberOne == undefined || numberTwo == undefined){
-			speechOutput = 'need two numbers to subtrat, please try again';
-			this.attributes['speechOutput'] = speechOutput;
-            this.attributes['repromptSpeech'] = 'please try again';
-            this.emit(':tell', speechOutput);
-		} else {
-			speechOutput = 'the subtraction of ' + numberOne + ' and ' + numberTwo + ' is ' + (numberOne - numberTwo);
-			this.attributes['speechOutput'] = speechOutput
-            this.emit(':tellWithCard', speechOutput, cardTitle, speechOutput);
-		}
-	},
-	'MulIntent': function() {
-		var numberOneSlot = this.event.request.intent.slots.NumberOne;
-		var numberTwoSlot = this.event.request.intent.slots.NumberTwo;
-        var numberOne;
-		var numberTwo;
-        if (numberOneSlot && numberOneSlot.value) {
-            numberOne = parseInt(numberOneSlot.value, 10);
-        } 
-		if (numberTwoSlot && numberTwoSlot.value) {
-            numberTwo = parseInt(numberTwoSlot.value, 10);
-        }
-		var cardTitle = 'MULTIPLICATION';
-		var speechOutput;
-		if(numberOne == undefined || numberTwo == undefined){
-			speechOutput = 'need two numbers to subtrat, please try again';
-			this.attributes['speechOutput'] = speechOutput;
-            this.attributes['repromptSpeech'] = 'please try again';
-            this.emit(':tell', speechOutput);
-		} else {
-			speechOutput = 'the multiplication of ' + numberOne + ' and ' + numberTwo + ' is ' + (numberOne * numberTwo);
-			this.attributes['speechOutput'] = speechOutput
-            this.emit(':tellWithCard', speechOutput, cardTitle, speechOutput);
-		}
-	},
-	'DivIntent': function() {
-		var numberOneSlot = this.event.request.intent.slots.NumberOne;
-		var numberTwoSlot = this.event.request.intent.slots.NumberTwo;
-        var numberOne;
-		var numberTwo;
-        if (numberOneSlot && numberOneSlot.value) {
-            numberOne = parseInt(numberOneSlot.value, 10);
-        } 
-		if (numberTwoSlot && numberTwoSlot.value) {
-            numberTwo = parseInt(numberTwoSlot.value, 10);
-        }
-		var cardTitle = 'DIVISION';
-		var speechOutput;
-		if(numberOne == undefined || numberTwo == undefined){
-			speechOutput = 'need two numbers to divide, please try again';
-			this.attributes['speechOutput'] = speechOutput;
-            this.attributes['repromptSpeech'] = 'please try again';
-            this.emit(':tell', speechOutput);
-		} else if(numberTwo == 0) {
-			speechOutput = 'need divisor cannot be zero, please try again';
-			this.attributes['speechOutput'] = speechOutput;
-            this.attributes['repromptSpeech'] = 'please try again';
-            this.emit(':tell', speechOutput);
-		} else {
-			speechOutput = 'the division of ' + numberOne + ' by ' + numberTwo + ' is ' + (numberOne/numberTwo);
-			this.attributes['speechOutput'] = speechOutput
-            this.emit(':tellWithCard', speechOutput, cardTitle, speechOutput);
-		}
-	},
-    'AMAZON.HelpIntent': function () {
-        this.attributes['speechOutput'] = 'You can ask questions such as, what\'s the summation of 5 and 3, or, you can say exit... ' +
-            'Now, what can I help you with?';
-        this.attributes['repromptSpeech'] = 'You can say things like, what\'s the difference between 5 and 3, or you can say exit...' +
-            ' Now, what can I help you with?';
-        this.emit(':ask', this.attributes['speechOutput'], this.attributes['repromptSpeech'])
-    },
-    'AMAZON.RepeatIntent': function () {
-        this.emit(':ask', this.attributes['speechOutput'], this.attributes['repromptSpeech'])
-    },
-    'AMAZON.StopIntent': function () {
-        this.emit('SessionEndedRequest');
-    },
-    'AMAZON.CancelIntent': function () {
-        this.emit('SessionEndedRequest');
-    },
-    'SessionEndedRequest':function () {
-        this.emit(':tell', 'Goodbye!');
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
     }
 };
 
-function calculator(option, numberOne, numberTwo){
-	switch(option) {
-    case 'add':
-        return (numberOne + numberTwo);
-    case 'sub':
-        return (numberOne - numberTwo);
-	case 'mul':
-        return (numberOne * numberTwo);
-	case 'div':
-        return (numberOne / numberTwo);
-	}
-}
+const AddIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AddIntent';
+    },
+    handle(handlerInput) {
+	//I have called the slots
+        var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
+        var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
+	// Converting the slots to integer
+        var numberOne = parseInt(numberone);
+	var numberTwo = parseInt(numbertwo);
+	//initializing the speakout
+        let speakOutput = '';
+        if(numberone == undefined || numbertwo == undefined){
+            speakOutput = "need two numbers to add, please try again";
+        }else{
+            speakOutput = 'the summation of ' + numberone + ' and ' + numbertwo + ' is ' + (numberOne + numberTwo);
+        }
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(" Want to calculate again")
+            .getResponse();
+    }
+};
+
+const SubIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SubIntent';
+    },
+    handle(handlerInput) {
+        var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
+        var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
+        var numberOne = parseInt(numberone);
+	var numberTwo = parseInt(numbertwo);
+        let speakOutput = '';
+        if(numberone == undefined || numbertwo == undefined){
+            speakOutput = "need two numbers to subtract, please try again";
+        }else{
+            speakOutput = 'the subtraction of ' + numberone + ' and ' + numbertwo + ' is ' + (numberOne - numberTwo);
+        }
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(" Want to calculate again")
+            .getResponse();
+    }
+};
+
+const MulIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'MulIntent';
+    },
+    handle(handlerInput) {
+        var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
+        var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
+        var numberOne = parseInt(numberone);
+	var numberTwo = parseInt(numbertwo);
+        let speakOutput = '';
+        if(numberone == undefined || numbertwo == undefined){
+            speakOutput = "need two numbers to multiply, please try again";
+        }else{
+            speakOutput = 'the multiplication of ' + numberone + ' and ' + numbertwo + ' is ' + (numberOne * numberTwo);
+        }
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(" Want to calculate again")
+            .getResponse();
+    }
+};
+
+const DivIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DivIntent';
+    },
+    handle(handlerInput) {
+        var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
+        var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
+        var numberOne = parseInt(numberone);
+	var numberTwo = parseInt(numbertwo);
+        let speakOutput = '';
+        if(numberone == undefined || numbertwo == undefined){
+            speakOutput = "need two numbers to divide, please try again";
+        }else{
+            speakOutput = 'the divison of ' + numberone + ' and ' + numbertwo + ' is ' + (numberOne/numberTwo);
+        }
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(" Want to calculate again")
+            .getResponse();
+    }
+};
+
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = "You can ask questions such as, what's the summation of 5 and 3, or, you can say exit... ";
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent'
+                || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Goodbye!';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
+/* *
+ * FallbackIntent triggers when a customer says something that doesn’t map to any intents in your skill
+ * It must also be defined in the language model (if the locale supports it)
+ * This handler can be safely added but will be ingnored in locales that do not support it yet 
+ * */
+const FallbackIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Sorry, I don\'t know about that. Please try again.';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+/* *
+ * SessionEndedRequest notifies that a session was ended. This handler will be triggered when a currently open 
+ * session is closed for one of the following reasons: 1) The user says "exit" or "quit". 2) The user does not 
+ * respond or says something that does not match an intent defined in your voice model. 3) An error occurs 
+ * */
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
+        // Any cleanup logic goes here.
+        return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
+    }
+};
+/* *
+ * The intent reflector is used for interaction model testing and debugging.
+ * It will simply repeat the intent the user said. You can create custom handlers for your intents 
+ * by defining them above, then also adding them to the request handler chain below 
+ * */
+const IntentReflectorHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
+    },
+    handle(handlerInput) {
+        const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
+        const speakOutput = `You just triggered ${intentName}`;
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+/**
+ * Generic error handling to capture any syntax or routing errors. If you receive an error
+ * stating the request handler chain is not found, you have not implemented a handler for
+ * the intent being invoked or included it in the skill builder below 
+ * */
+const ErrorHandler = {
+    canHandle() {
+        return true;
+    },
+    handle(handlerInput, error) {
+        const speakOutput = 'Sorry, I had trouble doing what you asked. Please try again.';
+        console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+/**
+ * This handler acts as the entry point for your skill, routing all request and response
+ * payloads to the handlers above. Make sure any new handlers or interceptors you've
+ * defined are included below. The order matters - they're processed top to bottom 
+ * */
+exports.handler = Alexa.SkillBuilders.custom()
+    .addRequestHandlers(
+        LaunchRequestHandler,
+        AddIntentHandler,
+        SubIntentHandler,
+        MulIntentHandler,
+        DivIntentHandler,
+        HelpIntentHandler,
+        CancelAndStopIntentHandler,
+        FallbackIntentHandler,
+        SessionEndedRequestHandler,
+        IntentReflectorHandler)
+    .addErrorHandlers(
+        ErrorHandler)
+    .withCustomUserAgent('sample/hello-world/v1.2')
+    .lambda();
