@@ -25,10 +25,13 @@ const AddIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AddIntent';
     },
     handle(handlerInput) {
+	//I have called the slots
         var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
         var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
+	// Converting the slots to integer
         var numberOne = parseInt(numberone);
-		var numberTwo = parseInt(numbertwo);
+	var numberTwo = parseInt(numbertwo);
+	//initializing the speakout
         let speakOutput = '';
         if(numberone == undefined || numbertwo == undefined){
             speakOutput = "need two numbers to add, please try again";
@@ -51,7 +54,7 @@ const SubIntentHandler = {
         var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
         var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
         var numberOne = parseInt(numberone);
-		var numberTwo = parseInt(numbertwo);
+	var numberTwo = parseInt(numbertwo);
         let speakOutput = '';
         if(numberone == undefined || numbertwo == undefined){
             speakOutput = "need two numbers to subtract, please try again";
@@ -74,7 +77,7 @@ const MulIntentHandler = {
         var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
         var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
         var numberOne = parseInt(numberone);
-		var numberTwo = parseInt(numbertwo);
+	var numberTwo = parseInt(numbertwo);
         let speakOutput = '';
         if(numberone == undefined || numbertwo == undefined){
             speakOutput = "need two numbers to multiply, please try again";
@@ -97,7 +100,7 @@ const DivIntentHandler = {
         var numberone = handlerInput.requestEnvelope.request.intent.slots.NumberOne.value;
         var numbertwo = handlerInput.requestEnvelope.request.intent.slots.NumberTwo.value;
         var numberOne = parseInt(numberone);
-		var numberTwo = parseInt(numbertwo);
+	var numberTwo = parseInt(numbertwo);
         let speakOutput = '';
         if(numberone == undefined || numbertwo == undefined){
             speakOutput = "need two numbers to divide, please try again";
